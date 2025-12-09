@@ -4,19 +4,19 @@ use internet_simulator::{Address, VirtualNetwork};
 async fn main() {
     let mut net = VirtualNetwork::new();
 
-    let a = net.register_node(Address::from_octets(10, 0, 0, 1), Some("node-A".into()));
-    let b = net.register_node(Address::from_octets(10, 0, 0, 2), Some("node-B".into()));
+    let a = net.register_node(Address(1), Some("A".into())).await;
+    let b = net.register_node(Address(2), Some("B".into())).await;
 
-    tokio::spawn(async move {
-        while let Some(msg) = a.recv().await {
-            println!("A({:?}) <- {:?}", a.label, msg);
+    // A -> B にメッセージ送信
+    tokio::spawn({
+        let a = a.clone();
+        async move {
+            a.send(Address(2), "Hello B!").await;
         }
     });
 
-    tokio::spawn(async move {
-        b.send(Address::from_octets(10, 0, 0, 1), b"PING".to_vec())
-            .await;
-    });
-
-    tokio::signal::ctrl_c().await.unwrap();
+    // B が受信
+    if let Some(msg) = b.recv().await {
+        println!("[{}] got: {}", b.address, msg.payload);
+    }
 }
