@@ -17,6 +17,6 @@ async fn main() {
 
     // B が受信
     if let Some(msg) = b.recv().await {
-        println!("[{}] got: {}", b.address, msg.payload);
+        println!("{} got: {}", b, msg.payload);
     }
 }

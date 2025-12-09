@@ -59,6 +59,15 @@ impl NetHandle {
     }
 }
 
+impl std::fmt::Display for NetHandle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self.label {
+            Some(label) => write!(f, "{}[{}]", label, self.address),
+            None => write!(f, "[{}]", self.address),
+        }
+    }
+}
+
 /// 仮想ネットワーク本体
 pub struct VirtualNetwork {
     nodes: Arc<RwLock<HashMap<Address, mpsc::Sender<Message>>>>,
