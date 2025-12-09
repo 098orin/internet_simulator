@@ -2,6 +2,9 @@
 name = "internet_simulator"
 version = "0.1.0"
 edition = "2024"
+authors = ["098orin <098orin0102@gmail.com>"]
+description = "A virtual network simulator with message routing for experimenting with Kademlia-like distributed systems."
+license = "Apache-2.0"
 
 [dependencies]
 tokio = { version = "1.48.0", features = ["full"] }
