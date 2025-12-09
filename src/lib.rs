@@ -8,6 +8,22 @@ impl Address {
     pub fn from_octets(a: u8, b: u8, c: u8, d: u8) -> Self {
         Self(((a as u32) << 24) | ((b as u32) << 16) | ((c as u32) << 8) | (d as u32))
     }
+
+    pub fn octets(&self) -> (u8, u8, u8, u8) {
+        (
+            (self.0 >> 24) as u8,
+            (self.0 >> 16) as u8,
+            (self.0 >> 8) as u8,
+            (self.0) as u8,
+        )
+    }
+}
+
+impl std::fmt::Display for Address {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let (a, b, c, d) = self.octets();
+        write!(f, "{}.{}.{}.{}", a, b, c, d)
+    }
 }
 
 /// ネットワーク上のメッセージ
