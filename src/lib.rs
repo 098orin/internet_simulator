@@ -84,7 +84,7 @@ impl VirtualNetwork {
                 if let Some(dst_tx) = nodes.get(&msg.dst) {
                     let _ = dst_tx.send(msg).await;
                 }
-                // TODO: 遅延・パケットロスここに追加可能
+                // 遅延とかここに実装できる
             }
         });
 
