@@ -74,6 +74,12 @@ pub struct VirtualNetwork {
     tx_router: mpsc::Sender<Message>,
 }
 
+impl Default for VirtualNetwork {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl VirtualNetwork {
     pub fn new() -> Self {
         let (tx_router, mut rx_router) = mpsc::channel::<Message>(128);
