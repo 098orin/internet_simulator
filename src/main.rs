@@ -1,8 +1,8 @@
-use internet_simulator::{Address, VirtualNetwork};
+use internet_simulator::{Address, Network};
 
 #[tokio::main]
 async fn main() {
-    let mut net = VirtualNetwork::new();
+    let net = Network::new();
 
     let a = net.register_node(Address(1), Some("A".into())).await;
     let b = net.register_node(Address(2), Some("B".into())).await;
